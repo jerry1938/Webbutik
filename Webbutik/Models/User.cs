@@ -12,7 +12,7 @@ namespace Webbutik.Models
         public string Name { get; set; }
         public string Password { get; set; }
         public DateTime LastLogin { get; set; }
-        public int SessionTimer { get; set; }
+        public DateTime SessionTimer { get; set; }
         public bool IsActive { get; set; }
         public bool IsAdmin { get; set; }
 
