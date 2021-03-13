@@ -13,8 +13,18 @@ namespace Webbutik.Database
             {
                 if (db.Users.Count() == 0)
                 {
-                    db.Users.Add(new Models.User { Name = "Administrator", Password = "CodicRulez", IsAdmin = true });
-                    db.Users.Add(new Models.User { Name = "TestCustomer", Password = "Codic2021", IsAdmin = false });
+                    db.Users.Add(new Models.User
+                    {
+                        Name = "Administrator",
+                        Password = "CodicRulez",
+                        IsAdmin = true
+                    });
+                    db.Users.Add(new Models.User
+                    {
+                        Name = "TestCustomer",
+                        Password = "Codic2021",
+                        IsAdmin = false
+                    });
                     db.SaveChanges();
                 }
 
@@ -70,7 +80,8 @@ namespace Webbutik.Database
                         AuthorId = db.Authors.FirstOrDefault(a => a.Name == "Isaac Asimov").Id,
                         Price = 150,
                         Amount = 4,
-                        CategoryId = db.BookCategories.FirstOrDefault(c => c.Name == "Science Fiction").Id
+                        CategoryId = db.BookCategories.FirstOrDefault(
+                            c => c.Name == "Science Fiction").Id
                     });
                     db.SaveChanges();
                 }
