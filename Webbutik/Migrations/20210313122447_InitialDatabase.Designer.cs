@@ -10,7 +10,7 @@ using Webbutik.Database;
 namespace Webbutik.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20210311115109_InitialDatabase")]
+    [Migration("20210313122447_InitialDatabase")]
     partial class InitialDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -140,8 +140,8 @@ namespace Webbutik.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SessionTimer")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("SessionTimer")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 

@@ -138,8 +138,8 @@ namespace Webbutik.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SessionTimer")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("SessionTimer")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
