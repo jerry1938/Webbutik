@@ -31,12 +31,12 @@ namespace Webbutik
 
         public void Logout(int userId)
         {
-            var user = shopContext.Users.FirstOrDefault(
-                u => u.Id == userId && u.SessionTimer > DateTime.Now.AddMinutes(-15));
+            var user = shopContext.Users.FirstOrDefault(u => u.Id == userId);
 
             if (user != null)
             {
                 user.SessionTimer = DateTime.MinValue;
+                user.IsActive = false;
                 shopContext.Users.Update(user);
                 shopContext.SaveChanges();
             }
