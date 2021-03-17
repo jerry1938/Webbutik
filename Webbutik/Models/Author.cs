@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Webbutik.Models
 {
-    class Author
+    public class Author
     {
         [Key]
         public int Id { get; set; }
