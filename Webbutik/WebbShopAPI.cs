@@ -12,8 +12,8 @@ namespace Webbutik
         private ShopContext shopContext = new ShopContext();
         public int Login(string userName, string password)
         {
-            var user = shopContext.Users.FirstOrDefault(u => u.Name == userName && 
-                u.Password == password && u.IsActive);
+            var user = shopContext.Users.FirstOrDefault(
+                u => u.Name == userName && u.Password == password);
 
             if (user != null)
             {
@@ -30,7 +30,15 @@ namespace Webbutik
 
         public void Logout(int userId)
         {
+            var user = shopContext.Users.FirstOrDefault(
+                u => u.Id == userId && u.SessionTimer > DateTime.Now.AddMinutes(-15));
 
+            if (user != null)
+            {
+                user.SessionTimer = DateTime.MinValue;
+                shopContext.Users.Update(user);
+                shopContext.SaveChanges();
+            }
         }
     }
 }
