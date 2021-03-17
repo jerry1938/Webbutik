@@ -13,12 +13,13 @@ namespace Webbutik
         public int Login(string userName, string password)
         {
             var user = shopContext.Users.FirstOrDefault(
-                u => u.Name == userName && u.Password == password);
+                u => u.Name == userName && u.Password == password && u.IsActive == false);
 
             if (user != null)
             {
                 user.LastLogin = DateTime.Now;
                 user.SessionTimer = DateTime.Now;
+                user.IsActive = true;
                 shopContext.Users.Update(user);
                 shopContext.SaveChanges();
 
