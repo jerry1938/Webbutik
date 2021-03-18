@@ -30,6 +30,7 @@ namespace Webbutik.Database
 
                 if (db.BookCategories.Count() == 0)
                 {
+                    db.BookCategories.Add(new Models.BookCategory { Name = "No Category" });
                     db.BookCategories.Add(new Models.BookCategory { Name = "Horror" });
                     db.BookCategories.Add(new Models.BookCategory { Name = "Humor" });
                     db.BookCategories.Add(new Models.BookCategory { Name = "Science Fiction" });
