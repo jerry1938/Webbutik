@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -59,7 +60,13 @@ namespace Webbutik
 
         public List<Book> GetAvailableBooks(int categoryId)
         {
-            return shopContext.Books.Where(b => b.Amount > 0 && b.CategoryId == categoryId).ToList();
+            return shopContext.Books.Where(b => b.Amount > 0 && b.CategoryId == categoryId)
+                .ToList();
+        }
+
+        public Book GetBook(int bookId)
+        {
+            return shopContext.Books.Include("Author").FirstOrDefault(b => b.Id == bookId);
         }
     }
 }
