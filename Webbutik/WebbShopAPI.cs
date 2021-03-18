@@ -281,5 +281,23 @@ namespace Webbutik
 
             return false;
         }
+
+        public bool AddCategory(int adminId, string categoryName)
+        {
+            var user = shopContext.Users.FirstOrDefault(u => u.Id == adminId);
+            var category = shopContext.BookCategories.FirstOrDefault(c => c.Name == categoryName);
+
+            if (user.IsAdmin == true)
+            {
+                if (category == null)
+                {
+                    shopContext.BookCategories.Add(new BookCategory { Name = categoryName });
+                    shopContext.SaveChanges();
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }
