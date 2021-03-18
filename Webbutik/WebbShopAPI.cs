@@ -145,5 +145,51 @@ namespace Webbutik
 
             return false;
         }
+
+        public bool AddBook(int adminId, string title, string author, int price, int amount)
+        {
+            var book = shopContext.Books.FirstOrDefault(b => b.Title == title);
+            var user = shopContext.Users.FirstOrDefault(u => u.Id == adminId);
+            var category = shopContext.BookCategories.FirstOrDefault(c => c.Name == "No Category");
+
+            if (user.IsAdmin == true)
+            {
+                if (book != null)
+                {
+                    book.Amount += amount;
+                    shopContext.Update(book);
+                    shopContext.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    shopContext.Books.Add(new Book
+                    {
+                        Title = title,
+                        AuthorId = AddAuthor(author),
+                        Price = price,
+                        Amount = amount,
+                        CategoryId = category.Id
+                    });
+                    shopContext.SaveChanges();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private int AddAuthor(string name)
+        {
+            var author = shopContext.Authors.FirstOrDefault(a => a.Name == name);
+
+            if (author == null)
+            {
+                shopContext.Authors.Add(new Author { Name = name });
+                shopContext.SaveChanges();
+            }
+
+            return author.Id;
+        }
     }
 }
