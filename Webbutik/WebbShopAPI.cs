@@ -264,8 +264,17 @@ namespace Webbutik
             {
                 if (book != null)
                 {
-                    shopContext.Remove(book);
-                    shopContext.SaveChanges();
+                    if (book.Amount > 0)
+                    {
+                        book.Amount -= 1;
+                        shopContext.Update(book);
+                        shopContext.SaveChanges();
+                    }
+                    else
+                    {
+                        shopContext.Remove(book);
+                        shopContext.SaveChanges();
+                    }
                     return true;
                 }
             }
