@@ -41,5 +41,15 @@ namespace Webbutik
                 shopContext.SaveChanges();
             }
         }
+
+        public List<BookCategory> GetCategories()
+        {
+            return shopContext.BookCategories.ToList();
+        }
+
+        public List<BookCategory> GetCategories(string keyword)
+        {
+            return shopContext.BookCategories.Where(c => c.Name.Contains(keyword)).ToList();
+        }
     }
 }
