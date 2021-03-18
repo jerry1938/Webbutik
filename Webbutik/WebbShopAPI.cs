@@ -212,5 +212,10 @@ namespace Webbutik
         {
             return shopContext.Users.Where(u => u.IsAdmin == false).ToList();
         }
+
+        public List<User> FindUser(int adminId, string keyword)
+        {
+            return shopContext.Users.Where(u => u.IsAdmin == false && u.Name.Contains(keyword)).ToList();
+        }
     }
 }
