@@ -207,5 +207,10 @@ namespace Webbutik
 
             return 0;
         }
+
+        public List<User> ListUsers(int adminId)
+        {
+            return shopContext.Users.Where(u => u.IsAdmin == false).ToList();
+        }
     }
 }
