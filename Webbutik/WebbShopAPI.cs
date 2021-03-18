@@ -240,5 +240,23 @@ namespace Webbutik
 
             return false;
         }
+
+        public bool DeleteBook(int adminId, int bookId)
+        {
+            var user = shopContext.Users.FirstOrDefault(u => u.Id == adminId);
+            var book = shopContext.Books.FirstOrDefault(b => b.Id == bookId);
+
+            if (user.IsAdmin == true)
+            {
+                if (book != null)
+                {
+                    shopContext.Remove(book);
+                    shopContext.SaveChanges();
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }
