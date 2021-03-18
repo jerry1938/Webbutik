@@ -125,5 +125,25 @@ namespace Webbutik
             Logout(userId);
             return string.Empty;
         }
+
+        public bool Register(string name, string password, string passwordVerify)
+        {
+            var user = shopContext.Users.FirstOrDefault(u => u.Name == name);
+
+            if (user == null && password == passwordVerify)
+            {
+                shopContext.Users.Add(new User
+                {
+                    Name = name,
+                    Password = password,
+                    IsAdmin = false,
+                    IsActive = false
+                });
+                shopContext.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
     }
 }
