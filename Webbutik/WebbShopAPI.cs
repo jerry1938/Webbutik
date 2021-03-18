@@ -109,5 +109,21 @@ namespace Webbutik
 
             return false;
         }
+
+        public string Ping(int userId)
+        {
+            var user = shopContext.Users.FirstOrDefault(u => u.Id == userId);
+
+            if (user.SessionTimer > DateTime.Now.AddMinutes(-15))
+            {
+                user.SessionTimer = DateTime.Now;
+                shopContext.Update(user);
+                shopContext.SaveChanges();
+                return "pong";
+            }
+
+            Logout(userId);
+            return string.Empty;
+        }
     }
 }
