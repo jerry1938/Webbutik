@@ -215,7 +215,30 @@ namespace Webbutik
 
         public List<User> FindUser(int adminId, string keyword)
         {
-            return shopContext.Users.Where(u => u.IsAdmin == false && u.Name.Contains(keyword)).ToList();
+            return shopContext.Users.Where(u => u.IsAdmin == false && u.Name.Contains(keyword))
+                .ToList();
+        }
+
+        public bool UpdateBook(int adminId, int bookId, string title, string authorName, int price)
+        {
+            var user = shopContext.Users.FirstOrDefault(u => u.Id == adminId);
+            var book = shopContext.Books.FirstOrDefault(b => b.Id == bookId);
+            var author = shopContext.Authors.FirstOrDefault(a => a.Name == authorName);
+
+            if (user.IsAdmin == true)
+            {
+                if (book != null)
+                {
+                    book.Title = title;
+                    book.AuthorId = author.Id;
+                    book.Price = price;
+                    shopContext.Update(book);
+                    shopContext.SaveChanges();
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
