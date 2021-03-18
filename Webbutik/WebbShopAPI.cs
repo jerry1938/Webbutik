@@ -79,5 +79,35 @@ namespace Webbutik
             return shopContext.Books.Include("Author").Where(b => b.Author.Name.Contains(keyword))
                 .ToList();
         }
+        public bool BuyBook(int userId, int bookId)
+        {
+            var user = shopContext.Users.FirstOrDefault(u => u.Id == userId);
+            var book = shopContext.Books.FirstOrDefault(b => b.Id == bookId);
+
+            if (user != null && user.SessionTimer > DateTime.Now.AddMinutes(-15))
+            {
+                if (book.Amount > 0)
+                {
+                    shopContext.SoldBooks.Add(new SoldBook
+                    {
+                        Title = book.Title,
+                        AuthorId = book.AuthorId,
+                        CategoryId = book.CategoryId,
+                        Price = book.Price,
+                        UserId = user.Id,
+                        PurchasedDate = DateTime.Now
+                    });
+                    shopContext.SaveChanges();
+
+                    book.Amount -= 1;
+                    shopContext.Update(book);
+                    shopContext.SaveChanges();
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }
