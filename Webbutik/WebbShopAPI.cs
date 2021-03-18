@@ -73,5 +73,11 @@ namespace Webbutik
         {
             return shopContext.Books.Where(b => b.Title.Contains(keyword)).ToList();
         }
+
+        public List<Book> GetAuthors(string keyword)
+        {
+            return shopContext.Books.Include("Author").Where(b => b.Author.Name.Contains(keyword))
+                .ToList();
+        }
     }
 }
