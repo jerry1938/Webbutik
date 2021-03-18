@@ -210,13 +210,27 @@ namespace Webbutik
 
         public List<User> ListUsers(int adminId)
         {
-            return shopContext.Users.Where(u => u.IsAdmin == false).ToList();
+            var user = shopContext.Users.FirstOrDefault(u => u.Id == adminId);
+
+            if (user.IsAdmin == true)
+            {
+                return shopContext.Users.Where(u => u.IsAdmin == false).ToList();
+            }
+
+            return new List<User>();
         }
 
         public List<User> FindUser(int adminId, string keyword)
         {
-            return shopContext.Users.Where(u => u.IsAdmin == false && u.Name.Contains(keyword))
-                .ToList();
+            var user = shopContext.Users.FirstOrDefault(u => u.Id == adminId);
+
+            if (user.IsAdmin == true)
+            {
+                return shopContext.Users.Where(u => u.IsAdmin == false && u.Name.Contains(keyword))
+                    .ToList();
+            }
+
+            return new List<User>();
         }
 
         public bool UpdateBook(int adminId, int bookId, string title, string authorName, int price)
