@@ -191,5 +191,21 @@ namespace Webbutik
 
             return author.Id;
         }
+
+        public int SetAmount(int adminId, int bookId, int amount)
+        {
+            var user = shopContext.Users.FirstOrDefault(u => u.Id == adminId);
+            var book = shopContext.Books.FirstOrDefault(b => b.Id == bookId);
+
+            if (book != null)
+            {
+                book.Amount = amount;
+                shopContext.Update(book);
+                shopContext.SaveChanges();
+                return book.Amount;
+            }
+
+            return 0;
+        }
     }
 }
