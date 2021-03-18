@@ -56,5 +56,10 @@ namespace Webbutik
         {
             return shopContext.Books.Where(b => b.CategoryId == categoryId).ToList();
         }
+
+        public List<Book> GetAvailableBooks(int categoryId)
+        {
+            return shopContext.Books.Where(b => b.Amount > 0 && b.CategoryId == categoryId).ToList();
+        }
     }
 }
