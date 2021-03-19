@@ -100,7 +100,7 @@ namespace Webbutik
 
             if (user != null && user.SessionTimer > DateTime.Now.AddMinutes(-15))
             {
-                if (book.Amount > 0)
+                if (book != null && book.Amount > 0)
                 {
                     shopContext.SoldBooks.Add(new SoldBook
                     {
