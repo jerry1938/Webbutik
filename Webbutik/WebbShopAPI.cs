@@ -392,5 +392,17 @@ namespace Webbutik
 
             return false;
         }
+
+        public List<SoldBook> SoldItems(int adminId)
+        {
+            var user = shopContext.Users.FirstOrDefault(u => u.Id == adminId);
+
+            if (user.IsAdmin == true)
+            {
+                return shopContext.SoldBooks.ToList();
+            }
+
+            return new List<SoldBook>();
+        }
     }
 }
