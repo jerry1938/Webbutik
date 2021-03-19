@@ -66,7 +66,21 @@ namespace Webbutik
 
         public Book GetBook(int bookId)
         {
-            return shopContext.Books.Include("Author").FirstOrDefault(b => b.Id == bookId);
+            var book = shopContext.Books.Include("Author").FirstOrDefault(b => b.Id == bookId);
+
+            if (book != null)
+            {
+                return shopContext.Books.Include("Author").FirstOrDefault(b => b.Id == bookId);
+            }
+
+            return new Book
+            {
+                Title = "No value",
+                Category = new BookCategory { Name = "No value" },
+                Author = new Author { Name = "No value" },
+                Amount = 0,
+                Price = 0
+            };
         }
 
         public List<Book> GetBooks(string keyword)
@@ -331,6 +345,25 @@ namespace Webbutik
                 {
                     category.Name = categoryName;
                     shopContext.Update(category);
+                    shopContext.SaveChanges();
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool DeleteCategory(int adminId, int categoryId)
+        {
+            var user = shopContext.Users.FirstOrDefault(u => u.Id == adminId);
+            var category = shopContext.BookCategories.FirstOrDefault(c => c.Id == categoryId);
+            var booksWithCategory = shopContext.Books.Where(b => b.CategoryId == categoryId);
+
+            if (user.IsAdmin == true)
+            {
+                if (category != null && booksWithCategory.Count() == 0)
+                {
+                    shopContext.Remove(category);
                     shopContext.SaveChanges();
                     return true;
                 }
