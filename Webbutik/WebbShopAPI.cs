@@ -423,5 +423,17 @@ namespace Webbutik
 
             return 0;
         }
+
+        public string BestCustomer(int adminId)
+        {
+            var admin = shopContext.Users.FirstOrDefault(u => u.Id == adminId);
+
+            if (admin.IsAdmin == true)
+            {
+                return shopContext.Users.Where(u => u.SoldBooks.Count() > 0).OrderByDescending(u => u.Id).FirstOrDefault().Name;
+            }
+
+            return string.Empty;
+        }
     }
 }
