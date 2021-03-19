@@ -404,5 +404,24 @@ namespace Webbutik
 
             return new List<SoldBook>();
         }
+
+        public int MoneyEarned(int adminId)
+        {
+            var user = shopContext.Users.FirstOrDefault(u => u.Id == adminId);
+
+            if (user.IsAdmin == true)
+            {
+                var money = shopContext.SoldBooks.Where(s => s.Price > 0).ToList();
+                int moneyEarned = 0;
+                foreach (var item in money)
+                {
+                    moneyEarned += item.Price;
+                }
+
+                return moneyEarned;
+            }
+
+            return 0;
+        }
     }
 }
