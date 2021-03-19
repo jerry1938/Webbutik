@@ -371,5 +371,26 @@ namespace Webbutik
 
             return false;
         }
+
+        public bool AddUser(int adminId, string username, string password = "Codic2021")
+        {
+            var user = shopContext.Users.FirstOrDefault(u => u.Name == username);
+            var admin = shopContext.Users.FirstOrDefault(a => a.Id == adminId);
+
+            if (admin.IsAdmin == true && user == null)
+            {
+                shopContext.Users.Add(new User
+                {
+                    Name = username,
+                    Password = password,
+                    IsActive = false,
+                    IsAdmin = false
+                });
+                shopContext.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
     }
 }
