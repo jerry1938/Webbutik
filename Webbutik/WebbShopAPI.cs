@@ -430,10 +430,44 @@ namespace Webbutik
 
             if (admin.IsAdmin == true)
             {
-                return shopContext.Users.Where(u => u.SoldBooks.Count() > 0).OrderByDescending(u => u.Id).FirstOrDefault().Name;
+                return shopContext.Users.Where(u => u.SoldBooks.Count() > 0)
+                    .OrderByDescending(u => u.Id)
+                    .FirstOrDefault().Name;
             }
 
             return string.Empty;
+        }
+
+        public bool Promote(int adminId, int userId)
+        {
+            var admin = shopContext.Users.FirstOrDefault(a => a.Id == adminId);
+            var user = shopContext.Users.FirstOrDefault(u => u.Id == userId);
+
+            if (admin.IsAdmin == true && user != null)
+            {
+                user.IsAdmin = true;
+                shopContext.Update(user);
+                shopContext.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool Demote(int adminId, int userId)
+        {
+            var admin = shopContext.Users.FirstOrDefault(a => a.Id == adminId);
+            var user = shopContext.Users.FirstOrDefault(u => u.Id == userId);
+
+            if (admin.IsAdmin == true && user != null)
+            {
+                user.IsAdmin = false;
+                shopContext.Update(user);
+                shopContext.SaveChanges();
+                return true;
+            }
+
+            return false;
         }
     }
 }
