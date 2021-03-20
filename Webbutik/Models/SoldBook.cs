@@ -31,7 +31,7 @@ namespace Webbutik.Models
         /// <summary>
         /// The id of the books category.
         /// </summary>
-        public int CategoryId { get; set; }
+        public int? CategoryId { get; set; }
 
         /// <summary>
         /// The books category.

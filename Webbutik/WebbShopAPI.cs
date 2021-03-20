@@ -513,7 +513,7 @@ namespace Webbutik
             {
                 if (category != null && booksWithCategory.Count() == 0)
                 {
-                    shopContext.Remove(category);
+                    shopContext.BookCategories.Remove(category);
                     shopContext.SaveChanges();
                     return true;
                 }
