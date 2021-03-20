@@ -40,7 +40,14 @@ namespace Webbutik.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer($@"Data Source=(localdb)\MSSQLLocalDB;Database={DatabaseName};Integrated Security=True;");
+            optionsBuilder.UseSqlServer($@"Data Source=(localdb)\MSSQLLocalDB;
+                Database={DatabaseName};Integrated Security=True;");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<SoldBook>().HasOne(c => c.Category).WithMany(c => c.SoldBooks)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }
