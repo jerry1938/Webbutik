@@ -7,11 +7,14 @@ namespace Webbutik.Database
 {
     public static class Seeder
     {
+        /// <summary>
+        /// Creates mockdata.
+        /// </summary>
         public static void Seed()
         {
             using (var db = new ShopContext())
             {
-                if (db.Users.Count() == 0)
+                if (db.Users.Count() == 0) // Creates the users.
                 {
                     db.Users.Add(new Models.User
                     {
@@ -28,7 +31,7 @@ namespace Webbutik.Database
                     db.SaveChanges();
                 }
 
-                if (db.BookCategories.Count() == 0)
+                if (db.BookCategories.Count() == 0) // Creates the categories.
                 {
                     db.BookCategories.Add(new Models.BookCategory { Name = "No Category" });
                     db.BookCategories.Add(new Models.BookCategory { Name = "Horror" });
@@ -38,7 +41,7 @@ namespace Webbutik.Database
                     db.SaveChanges();
                 }
 
-                if (db.Authors.Count() == 0)
+                if (db.Authors.Count() == 0) // Creates the authors.
                 {
                     db.Authors.Add(new Models.Author { Name = "Clive Barker" });
                     db.Authors.Add(new Models.Author { Name = "Stephen King" });
@@ -46,7 +49,7 @@ namespace Webbutik.Database
                     db.SaveChanges();
                 }
 
-                if (db.Books.Count() == 0)
+                if (db.Books.Count() == 0) // Creates the books.
                 {
                     db.Books.Add(new Models.Book
                     {
