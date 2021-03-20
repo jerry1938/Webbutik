@@ -90,7 +90,7 @@ namespace Webbutik.Migrations
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<int>("Price")
@@ -176,8 +176,7 @@ namespace Webbutik.Migrations
                     b.HasOne("Webbutik.Models.BookCategory", "Category")
                         .WithMany("SoldBooks")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Webbutik.Models.User", "User")
                         .WithMany("SoldBooks")

@@ -10,7 +10,7 @@ using Webbutik.Database;
 namespace Webbutik.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20210319161047_InitialDatabase")]
+    [Migration("20210320162150_InitialDatabase")]
     partial class InitialDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -92,7 +92,7 @@ namespace Webbutik.Migrations
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CategoryId")
+                    b.Property<int?>("CategoryId")
                         .HasColumnType("int");
 
                     b.Property<int>("Price")
@@ -178,8 +178,7 @@ namespace Webbutik.Migrations
                     b.HasOne("Webbutik.Models.BookCategory", "Category")
                         .WithMany("SoldBooks")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Webbutik.Models.User", "User")
                         .WithMany("SoldBooks")
