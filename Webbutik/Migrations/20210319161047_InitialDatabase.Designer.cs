@@ -10,7 +10,7 @@ using Webbutik.Database;
 namespace Webbutik.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20210313122447_InitialDatabase")]
+    [Migration("20210319161047_InitialDatabase")]
     partial class InitialDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
