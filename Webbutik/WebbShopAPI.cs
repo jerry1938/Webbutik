@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Webbutik.Database;
 using Webbutik.Models;
 
@@ -462,6 +461,38 @@ namespace Webbutik
             if (admin.IsAdmin == true && user != null)
             {
                 user.IsAdmin = false;
+                shopContext.Update(user);
+                shopContext.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool ActivateUser(int adminId, int userId)
+        {
+            var admin = shopContext.Users.FirstOrDefault(a => a.Id == adminId);
+            var user = shopContext.Users.FirstOrDefault(u => u.Id == userId);
+
+            if (admin.IsAdmin == true && user != null)
+            {
+                user.IsActive = true;
+                shopContext.Update(user);
+                shopContext.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool InactivateUser(int adminId, int userId)
+        {
+            var admin = shopContext.Users.FirstOrDefault(a => a.Id == adminId);
+            var user = shopContext.Users.FirstOrDefault(u => u.Id == userId);
+
+            if (admin.IsAdmin == true && user != null)
+            {
+                user.IsActive = false;
                 shopContext.Update(user);
                 shopContext.SaveChanges();
                 return true;
